@@ -189,7 +189,13 @@ public class CreateThumbnailModule extends ReactContextBaseJavaModule {
         }
   
         Bitmap image = retriever.getFrameAtTime(time * 1000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
-        retriever.release();
+        try {
+            retriever.release();
+        } catch (Exception e) { // Catching Exception class as it's unclear what specific exception you're facing
+            // Handle or log the exception here
+            e.printStackTrace();
+        }
+        
         if (image == null) {
             throw new IllegalStateException("File doesn't exist or not supported");
         }
